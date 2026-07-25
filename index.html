@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KAGE NO YOKAI: 1200 AD — 3D Pixel Action-Roguelike</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Outfit:wght@400;600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+  <div id="game-container">
+    <div id="canvas-container"></div>
+
+    <!-- UI Overlay System -->
+    <div id="ui-overlay">
+
+      <!-- Corner Frame Ornaments -->
+      <div class="corner-frame corner-tl"></div>
+      <div class="corner-frame corner-tr"></div>
+      <div class="corner-frame corner-bl"></div>
+      <div class="corner-frame corner-br"></div>
+
+      <!-- Dedicated Main Menu Background Slideshow (8 Wallpapers, Slow 12s Transition) -->
+      <div id="menu-bg-slideshow" class="menu-bg-slideshow">
+        <div class="bg-slide active" style="background-image: url('./assets/menu_wallpapers/menu_bg_1.jpg');"></div>
+        <div class="bg-slide" style="background-image: url('./assets/menu_wallpapers/menu_bg_2.jpg');"></div>
+        <div class="bg-slide" style="background-image: url('./assets/menu_wallpapers/menu_bg_3.jpg');"></div>
+        <div class="bg-slide" style="background-image: url('./assets/menu_wallpapers/menu_bg_4.jpg');"></div>
+        <div class="bg-slide" style="background-image: url('./assets/menu_wallpapers/menu_bg_5.jpg');"></div>
+        <div class="bg-slide" style="background-image: url('./assets/menu_wallpapers/menu_bg_6.jpg');"></div>
+        <div class="bg-slide" style="background-image: url('./assets/menu_wallpapers/menu_bg_7.jpg');"></div>
+        <div class="bg-slide" style="background-image: url('./assets/menu_wallpapers/menu_bg_8.jpg');"></div>
+      </div>
+
+      <!-- Main Menu Screen -->
+      <div id="screen-main-menu" class="ui-screen active">
+        <div class="menu-brand">
+          <div class="japan-kanji">妖怪</div>
+          <h1 class="game-title">KAGE NO YOKAI:</h1>
+          <div class="game-year">1200 AD</div>
+        </div>
+
+        <div class="menu-buttons-vertical">
+          <!-- Primary Glow Button -->
+          <button id="btn-start-run" class="menu-btn btn-gold-main">
+            <span class="btn-text">PLAY GAME</span>
+            <span class="btn-sub">START ADVENTURE</span>
+          </button>
+
+          <!-- Secondary Wooden Buttons -->
+          <button id="btn-select-skin" class="menu-btn btn-wood">
+            <span class="btn-text">CHARACTER & SKINS</span>
+          </button>
+
+          <button id="btn-select-level" class="menu-btn btn-wood icon-btn">
+            <span class="btn-icon-left">🏯</span>
+            <span class="btn-text">CAMPAIGN / ENDLESS</span>
+            <span class="btn-icon-right">💀</span>
+          </button>
+
+          <button id="btn-open-settings" class="menu-btn btn-wood">
+            <span class="btn-text">SETTINGS</span>
+          </button>
+
+          <button id="btn-exit" class="menu-btn btn-red-wood">
+            <span class="btn-text">EXIT</span>
+          </button>
+        </div>
+
+        <div class="account-meta-badge">
+          <span class="label">УРОВЕНЬ ПРОФИЛЯ:</span>
+          <span id="account-level-val" class="value">1</span>
+          <div class="meta-xp-bar"><div id="account-xp-fill" class="fill" style="width: 25%;"></div></div>
+        </div>
+      </div>
+
+      <!-- Character Skin Select Screen -->
+      <div id="screen-skin-select" class="ui-screen">
+        <div class="screen-header">
+          <h2>ВЫБОР ВОИНА И СКИНА</h2>
+          <button class="btn-back">⬅ НАЗАД</button>
+        </div>
+
+        <div class="skin-select-layout">
+          <div class="skin-carousel-container">
+            <div id="skins-grid" class="skins-grid">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <div class="skin-details-card">
+            <h3 id="skin-detail-name">Самурай</h3>
+            <div id="skin-detail-rarity" class="badge">Базовый Персонаж</div>
+            <div class="skin-weapon-info">
+              <span>Стартовое Оружие:</span>
+              <strong id="skin-detail-weapon">Катана</strong>
+            </div>
+            <p id="skin-detail-passive" class="passive-desc">+10% к шансу критического удара в ближнем бою.</p>
+
+            <button id="btn-confirm-skin" class="btn btn-primary">ВЫБРАТЬ ДАННОГО ВОИНА</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Level & Mode Select Screen -->
+      <div id="screen-level-select" class="ui-screen">
+        <div class="screen-header">
+          <h2>ВЫБОР ЭТАПА И РЕЖИМА</h2>
+          <button class="btn-back">⬅ НАЗАД</button>
+        </div>
+
+        <div class="mode-tabs">
+          <button id="tab-mode-campaign" class="tab-btn active">📜 12 ЭТАПОВ КАМПАНИИ</button>
+          <button id="tab-mode-endless" class="tab-btn">🔥 БЕСКОНЕЧНЫЙ РЕЖИМ</button>
+        </div>
+
+        <div id="levels-grid" class="levels-grid">
+          <!-- Dynamically populated 12 levels -->
+        </div>
+
+        <div class="level-start-panel">
+          <div class="level-info-text">
+            <h3 id="selected-level-title">Этап 1: Разрушенные Врата Камакуры</h3>
+            <p id="selected-level-desc">Горящие пагоды, разрушенные стены и первая волна ёкаев.</p>
+          </div>
+          <button id="btn-launch-level" class="btn btn-primary">НАЧАТЬ ЭТАП</button>
+        </div>
+      </div>
+
+      <!-- Settings Screen -->
+      <div id="screen-settings" class="ui-screen">
+        <div class="screen-header">
+          <h2>НАСТРОЙКИ ИГРЫ</h2>
+          <button class="btn-back">⬅ НАЗАД</button>
+        </div>
+
+        <div class="settings-box">
+          <div class="setting-row">
+            <label>Громкость Звуков (SFX):</label>
+            <input type="range" id="setting-sfx" min="0" max="100" value="80">
+          </div>
+          <div class="setting-row">
+            <label>Громкость Музыки:</label>
+            <input type="range" id="setting-music" min="0" max="100" value="60">
+          </div>
+          <div class="setting-row">
+            <label>Сила 3D Pixel-Шейдера:</label>
+            <input type="range" id="setting-pixel" min="1" max="5" value="2">
+          </div>
+          <div class="setting-row">
+            <label>Авто-атака мыши:</label>
+            <input type="checkbox" id="setting-autoaim" checked>
+          </div>
+        </div>
+      </div>
+
+      <!-- In-Game HUD -->
+      <div id="hud-overlay" class="hud-container">
+        <div class="hud-top">
+          <div class="hud-hp-box">
+            <span class="hp-label">HP</span>
+            <div class="hp-bar-outer"><div id="hud-hp-fill" class="hp-fill" style="width: 100%;"></div></div>
+            <span id="hud-hp-text">100/100</span>
+          </div>
+
+          <div class="hud-xp-box">
+            <span class="xp-label">УРОВЕНЬ <strong id="hud-level-num">1</strong></span>
+            <div class="xp-bar-outer"><div id="hud-xp-fill" class="xp-fill" style="width: 0%;"></div></div>
+          </div>
+
+          <div class="hud-counters">
+            <div class="counter-item">💀 Убито: <strong id="hud-kills">0</strong></div>
+            <div class="counter-item">⏱ Время: <strong id="hud-timer">00:00</strong></div>
+          </div>
+        </div>
+
+        <div class="hud-slots">
+          <div class="slots-group">
+            <div class="slots-title">Оружие (Макс 3)</div>
+            <div id="weapon-slots" class="slots-list">
+              <div class="slot empty"></div>
+              <div class="slot empty"></div>
+              <div class="slot empty"></div>
+            </div>
+          </div>
+
+          <div class="slots-group">
+            <div class="slots-title">Пассивки (Макс 3)</div>
+            <div id="ability-slots" class="slots-list">
+              <div class="slot empty"></div>
+              <div class="slot empty"></div>
+              <div class="slot empty"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hud-controls-hint">
+          <span>WASD — Передвижение</span> | <span>Мышь — Направление атаки</span> | <span>Пробел — Рывок</span>
+        </div>
+      </div>
+
+      <!-- Level-Up Upgrade Cards Modal -->
+      <div id="modal-levelup" class="ui-modal">
+        <div class="modal-content levelup-box">
+          <div class="levelup-header">
+            <h2>ПОВЫШЕНИЕ УРОВНЯ!</h2>
+            <p>Выберите одно из предложенных усовершенствований:</p>
+          </div>
+
+          <div id="cards-container" class="cards-container">
+            <!-- 3 random cards -->
+          </div>
+
+          <div class="levelup-actions">
+            <button id="btn-reroll-cards" class="btn btn-secondary">🎲 РЕРОЛЛ (Осталось: <span id="reroll-count">1</span>)</button>
+            <button id="btn-skip-cards" class="btn btn-danger">❌ ПРОПУСТИТЬ ВЫБОР</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chapter Loading Screen Overlay -->
+      <div id="screen-chapter-intro" class="ui-screen">
+        <div class="chapter-intro-content">
+          <div id="chapter-subtitle" class="chapter-sub">ГЛАВА I</div>
+          <h1 id="chapter-title" class="chapter-title">РАЗРУШЕННЫЕ ВРАТА КАМАКУРЫ</h1>
+          <p id="chapter-lore" class="chapter-quote">«Пепел и Кровь охватили святую землю эпохи Камакура...»</p>
+          <div class="loading-spinner"></div>
+        </div>
+      </div>
+
+      <!-- Game Over Modal -->
+      <div id="modal-gameover" class="ui-modal">
+        <div class="modal-content result-box">
+          <h2 id="result-title">ПОРАЖЕНИЕ</h2>
+          <p id="result-desc">Ваш воин пал в битве с ночными ёкаями...</p>
+
+          <div class="result-stats">
+            <div>Убито демонов: <strong id="res-kills">0</strong></div>
+            <div>Пройдено волн: <strong id="res-waves">0</strong></div>
+            <div>Получено XP профиля: <strong id="res-xp">+0 XP</strong></div>
+          </div>
+
+          <button id="btn-restart-run" class="btn btn-primary">ГЛАВНОЕ МЕНЮ</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
