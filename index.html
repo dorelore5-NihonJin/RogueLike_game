@@ -24,7 +24,7 @@
 
       <!-- Dedicated Main Menu Background Slideshow -->
       <div id="menu-bg-slideshow" class="menu-bg-slideshow">
-        <div class="bg-slide active" style="background-image: url('./assets/menu_wallpapers/menu_bg_2.jpg');"></div>
+        <div class="bg-slide" style="background-image: url('./assets/menu_wallpapers/menu_bg_2.jpg');"></div>
         <div class="bg-slide" style="background-image: url('./assets/menu_wallpapers/menu_bg_3.jpg');"></div>
         <div class="bg-slide" style="background-image: url('./assets/menu_wallpapers/menu_bg_1.jpg');"></div>
         <div class="bg-slide" style="background-image: url('./assets/menu_wallpapers/menu_bg_4.jpg');"></div>
@@ -36,197 +36,416 @@
 
       <!-- Main Menu Screen -->
       <div id="screen-main-menu" class="ui-screen active">
-        <!-- Title Branding Section matching Reference -->
-        <div class="menu-brand">
-          <div class="japan-kanji-top">妖怪</div>
-          <h1 class="game-title">KAGE NO YOKAI:</h1>
-          <div class="game-year">1200 AD</div>
+        
+        <!-- Centered Main Content Wrapper (Title + Buttons) -->
+        <div class="main-menu-center-content">
+          <!-- Title Branding Section matching Reference -->
+          <div class="menu-brand">
+            <div class="japan-kanji-top">妖怪</div>
+            <h1 class="game-title">KAGE NO YOKAI:</h1>
+            <div class="game-year">1200 AD</div>
+          </div>
+
+          <!-- Vertical Menu Buttons Section -->
+          <div class="menu-buttons-vertical">
+            <!-- 1. Main Gold PLAY GAME Button (Launches 12 Chapters Campaign) -->
+            <button id="btn-start-run" class="pixel-btn btn-gold">
+              <div class="btn-border-inner">
+                <span class="btn-text">PLAY GAME</span>
+                <span class="btn-sub">12 CHAPTERS CAMPAIGN</span>
+              </div>
+            </button>
+
+            <!-- 2. Wooden Button: CHARACTER & SKINS -->
+            <button id="btn-select-skin" class="pixel-btn btn-wood">
+              <div class="btn-border-inner">
+                <span class="btn-text">CHARACTER & SKINS</span>
+              </div>
+            </button>
+
+            <!-- 3. Dedicated Endless Arena Button -->
+            <button id="btn-open-endless" class="pixel-btn btn-wood icon-btn">
+              <div class="btn-border-inner">
+                <svg class="pixel-icon icon-samurai" viewBox="0 0 24 24" width="22" height="22">
+                  <path d="M4 4 h3 v2 h-3 z M17 4 h3 v2 h-3 z M6 6 h3 v2 h-3 z M15 6 h3 v2 h-3 z M8 8 h8 v2 h-8 z" fill="#ffd700"/>
+                  <path d="M7 10 h10 v6 h-10 z" fill="#8b0000"/>
+                  <path d="M9 12 h6 v3 h-6 z" fill="#d4af37"/>
+                  <path d="M8 16 h8 v4 h-8 z" fill="#1a1a24"/>
+                </svg>
+
+                <span class="btn-text single-line">ENDLESS SURVIVAL ARENA</span>
+
+                <svg class="pixel-icon icon-skull" viewBox="0 0 24 24" width="22" height="22">
+                  <path d="M6 5 h12 v2 h2 v6 h-2 v3 h-3 v3 h-6 v-3 h-3 v-3 h-2 v-6 h2 z" fill="#f0e6d2"/>
+                  <rect x="8" y="9" width="3" height="4" fill="#100505"/>
+                  <rect x="13" y="9" width="3" height="4" fill="#100505"/>
+                </svg>
+              </div>
+            </button>
+
+            <!-- 4. Wooden Button: CODEX & LORE -->
+            <button id="btn-open-codex" class="pixel-btn btn-wood">
+              <div class="btn-border-inner">
+                <span class="btn-text">CODEX & LORE</span>
+              </div>
+            </button>
+
+            <!-- 5. Wooden Button: SETTINGS -->
+            <button id="btn-open-settings" class="pixel-btn btn-wood">
+              <div class="btn-border-inner">
+                <span class="btn-text">SETTINGS</span>
+              </div>
+            </button>
+
+            <!-- 6. Red Button: EXIT -->
+            <button id="btn-exit" class="pixel-btn btn-red">
+              <div class="btn-border-inner">
+                <span class="btn-text">EXIT</span>
+              </div>
+            </button>
+          </div>
         </div>
 
-        <!-- Vertical Menu Buttons Section -->
-        <div class="menu-buttons-vertical">
-          <!-- 1. Main Gold PLAY GAME Button -->
-          <button id="btn-start-run" class="pixel-btn btn-gold">
-            <div class="btn-border-inner">
-              <span class="btn-text">PLAY GAME</span>
-              <span class="btn-sub">START ADVENTURE</span>
-            </div>
-          </button>
-
-          <!-- 2. Wooden Button: CHARACTER & SKINS -->
-          <button id="btn-select-skin" class="pixel-btn btn-wood">
-            <div class="btn-border-inner">
-              <span class="btn-text">CHARACTER & SKINS</span>
-            </div>
-          </button>
-
-          <!-- 3. Wooden Button with Custom Pixel SVGs: CAMPAIGN / ENDLESS -->
-          <button id="btn-select-level" class="pixel-btn btn-wood icon-btn">
-            <div class="btn-border-inner">
-              <svg class="pixel-icon icon-samurai" viewBox="0 0 24 24" width="22" height="22">
-                <path d="M4 4 h3 v2 h-3 z M17 4 h3 v2 h-3 z M6 6 h3 v2 h-3 z M15 6 h3 v2 h-3 z M8 8 h8 v2 h-8 z" fill="#ffd700"/>
-                <path d="M7 10 h10 v6 h-10 z" fill="#8b0000"/>
-                <path d="M9 12 h6 v3 h-6 z" fill="#d4af37"/>
-                <path d="M8 16 h8 v4 h-8 z" fill="#1a1a24"/>
-                <circle cx="10" cy="18" r="1" fill="#ff3333"/>
-                <circle cx="14" cy="18" r="1" fill="#ff3333"/>
-              </svg>
-
-              <span class="btn-text single-line">CAMPAIGN / ENDLESS</span>
-
-              <svg class="pixel-icon icon-skull" viewBox="0 0 24 24" width="22" height="22">
-                <path d="M6 5 h12 v2 h2 v6 h-2 v3 h-3 v3 h-6 v-3 h-3 v-3 h-2 v-6 h2 z" fill="#f0e6d2"/>
-                <rect x="8" y="9" width="3" height="4" fill="#100505"/>
-                <rect x="13" y="9" width="3" height="4" fill="#100505"/>
-                <rect x="9" y="10" width="1" height="2" fill="#ff3333"/>
-                <rect x="14" y="10" width="1" height="2" fill="#ff3333"/>
-                <rect x="10" y="16" width="1" height="2" fill="#100505"/>
-                <rect x="13" y="16" width="1" height="2" fill="#100505"/>
-              </svg>
-            </div>
-          </button>
-
-          <!-- 4. Wooden Button: CODEX & LORE -->
-          <button id="btn-open-codex" class="pixel-btn btn-wood">
-            <div class="btn-border-inner">
-              <span class="btn-text">CODEX & LORE</span>
-            </div>
-          </button>
-
-          <!-- 5. Wooden Button: SETTINGS -->
-          <button id="btn-open-settings" class="pixel-btn btn-wood">
-            <div class="btn-border-inner">
-              <span class="btn-text">SETTINGS</span>
-            </div>
-          </button>
-
-          <!-- 6. Red Button: EXIT -->
-          <button id="btn-exit" class="pixel-btn btn-red">
-            <div class="btn-border-inner">
-              <span class="btn-text">EXIT</span>
-            </div>
-          </button>
-        </div>
-
-        <!-- Account Level & Koban Gold Meta Badge (Positioned inside corner frame) -->
+        <!-- Account Level & Koban Gold Meta Badge -->
         <div id="account-badge" class="account-meta-badge">
           <div class="badge-border-inner">
             <div class="badge-row">
-              <span class="label">УРОВЕНЬ ПРОФИЛЯ: <strong id="account-level-val">1</strong></span>
+              <span class="label">УРОВЕНЬ ПРОФИЛЯ: <strong id="account-level-val">24</strong></span>
               
               <div class="koban-pill">
-                <!-- Custom Pixel Koban Gold Coin SVG -->
                 <svg class="pixel-icon icon-koban" viewBox="0 0 24 24" width="18" height="18">
                   <ellipse cx="12" cy="12" rx="7" ry="10" fill="#ffd700" stroke="#b8860b" stroke-width="1.5"/>
                   <line x1="8" y1="6" x2="16" y2="6" stroke="#b8860b" stroke-width="1"/>
                   <line x1="8" y1="18" x2="16" y2="18" stroke="#b8860b" stroke-width="1"/>
                   <path d="M10 9 h4 v2 h-4 z M11 11 h2 v4 h-2 z M9 15 h6 v1 h-6 z" fill="#8b6514"/>
                 </svg>
-                <span class="gold-val"><strong id="account-gold-val">500</strong> Koban</span>
+                <span class="gold-val"><strong id="account-gold-val">24,500</strong> Koban</span>
               </div>
             </div>
-            <div class="meta-xp-bar"><div id="account-xp-fill" class="fill" style="width: 25%;"></div></div>
+            <div class="meta-xp-bar"><div id="account-xp-fill" class="fill" style="width: 65%;"></div></div>
           </div>
         </div>
       </div>
 
-      <!-- Character Skin Select Screen -->
+      <!-- CHARACTER & SKIN SELECTION SCREEN -->
       <div id="screen-skin-select" class="ui-screen">
-        <div class="screen-header">
-          <h2>ВЫБОР ВОИНА И СКИНА</h2>
-          <button class="btn-back">⬅ НАЗАД</button>
-        </div>
-
-        <div class="skin-select-layout">
-          <div class="skin-carousel-container">
-            <div id="skins-grid" class="skins-grid">
-              <!-- Dynamically populated -->
+        
+        <!-- Top Bar Header with Integrated Profile Badge -->
+        <div class="skin-screen-header">
+          
+          <!-- Top Left User Account Pill -->
+          <div class="skin-user-pill">
+            <div class="user-avatar-frame">
+              <svg class="pixel-icon" viewBox="0 0 24 24" width="26" height="26">
+                <path d="M4 4 h3 v2 h-3 z M17 4 h3 v2 h-3 z M6 6 h3 v2 h-3 z M15 6 h3 v2 h-3 z M8 8 h8 v2 h-8 z" fill="#ffd700"/>
+                <path d="M7 10 h10 v6 h-10 z" fill="#1f3a60"/>
+              </svg>
+            </div>
+            <div class="user-details">
+              <div class="user-row">
+                <span class="username">USER: RONIN_X</span>
+                <span id="skin-user-level-val" class="user-level">Lv. 24</span>
+              </div>
+              <div class="user-xp-bar-outer">
+                <div id="skin-user-xp-fill" class="user-xp-fill" style="width: 65%;"></div>
+              </div>
+              <span id="skin-user-xp-text" class="xp-text-sub">9,800 / 15,000 XP</span>
+            </div>
+            <div class="user-gold-pill">
+              <svg class="pixel-icon" viewBox="0 0 24 24" width="16" height="16">
+                <ellipse cx="12" cy="12" rx="7" ry="10" fill="#ffd700" stroke="#b8860b" stroke-width="1.5"/>
+              </svg>
+              <span id="skin-user-gold-val">24,500 G</span>
             </div>
           </div>
 
-          <div class="skin-details-card">
-            <h3 id="skin-detail-name">Самурай</h3>
-            <div id="skin-detail-rarity" class="badge">Базовый Персонаж</div>
-            <div class="skin-weapon-info">
-              <span>Стартовое Оружие:</span>
-              <strong id="skin-detail-weapon">Катана</strong>
-            </div>
-            <p id="skin-detail-passive" class="passive-desc">+10% к шансу критического удара в ближнем бою.</p>
-            <div id="skin-detail-price" class="skin-price-tag">Бесплатно</div>
+          <!-- Top Center Branding Title -->
+          <div class="skin-center-branding">
+            <div class="skin-sub-title">PIXEL SAGA: SAMURAI LEGENDS</div>
+            <h1 class="skin-main-title">CHARACTER SKIN SELECTION</h1>
+          </div>
 
-            <button id="btn-confirm-skin" class="btn btn-primary">ВЫБРАТЬ ДАННОГО ВОИНА</button>
-            <button id="btn-buy-skin" class="btn btn-gold" style="display:none;">💰 КУПИТЬ СКИН</button>
+          <!-- Top Right Back Button -->
+          <button class="pixel-btn btn-wood btn-back" style="width:140px;">
+            <div class="btn-border-inner"><span class="btn-text">⬅ НАЗАД</span></div>
+          </button>
+        </div>
+
+        <!-- Main Screen Body: 2D Center Showcase + Right Stats Panel -->
+        <div class="skin-selection-main-body">
+          
+          <!-- Center Column: 2D Animated Hero Showcase Viewport -->
+          <div class="hero-showcase-column">
+            
+            <div class="showcase-backdrop-shrine">
+              <div class="sakura-particles-layer"></div>
+            </div>
+
+            <!-- 2D Animated Pixel Art Canvas Container -->
+            <div id="hero-pedestal-viewport" class="hero-pedestal-viewport">
+              <canvas id="hero-pedestal-canvas"></canvas>
+            </div>
+
+            <!-- Pedestal Hero Banner & Main Action Button -->
+            <div class="pedestal-hero-banner">
+              <h3 id="showcase-skin-name">BLUE SAMURAI</h3>
+              <div id="showcase-skin-rarity" class="showcase-rarity-pill">(Rare)</div>
+
+              <div class="pedestal-action-btn-wrap">
+                <button id="btn-confirm-skin" class="pixel-btn btn-gold" style="width:260px;">
+                  <div class="btn-border-inner"><span class="btn-text">CONFIRM SELECTION</span></div>
+                </button>
+
+                <button id="btn-buy-skin" class="pixel-btn btn-gold" style="display:none; width:260px;">
+                  <div class="btn-border-inner"><span class="btn-text">КУПИТЬ СКИН</span></div>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Wooden Scroll Character Attribute Stats Panel -->
+          <div id="hero-stats-panel" class="hero-stats-panel">
+            <div class="stats-panel-kanji-watermark">武士</div>
+
+            <h3 id="stats-hero-title" class="stats-hero-header">SAMURAI</h3>
+
+            <!-- Segmented Pixel Attribute Progress Bars -->
+            <div class="stats-attribute-rows">
+              
+              <!-- HEALTH BAR -->
+              <div class="stat-attribute-item">
+                <div class="stat-attr-label">
+                  <span>HEALTH:</span>
+                  <strong id="val-attr-hp">240/240</strong>
+                </div>
+                <div class="pixel-stat-bar bar-health">
+                  <div id="bar-hp-fill" class="fill-blocks" style="width: 80%;"></div>
+                </div>
+              </div>
+
+              <!-- SPEED BAR -->
+              <div class="stat-attribute-item">
+                <div class="stat-attr-label">
+                  <span>SPEED:</span>
+                  <strong id="val-attr-speed">35</strong>
+                </div>
+                <div class="pixel-stat-bar bar-speed">
+                  <div id="bar-speed-fill" class="fill-blocks" style="width: 70%;"></div>
+                </div>
+              </div>
+
+              <!-- CRIT RATE BAR -->
+              <div class="stat-attribute-item">
+                <div class="stat-attr-label">
+                  <span>CRIT RATE:</span>
+                  <strong id="val-attr-crit">15%</strong>
+                </div>
+                <div class="pixel-stat-bar bar-crit">
+                  <div id="bar-crit-fill" class="fill-blocks" style="width: 30%;"></div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- STARTING WEAPON CARD -->
+            <div class="stats-card-box weapon-card-box">
+              <label class="card-box-label">STARTING WEAPON:</label>
+              <div class="card-box-content">
+                <div id="stats-weapon-icon" class="weapon-svg-icon-frame">
+                  <svg class="pixel-icon" viewBox="0 0 24 24" width="32" height="32">
+                    <path d="M3 21 l16 -16 h3 v3 l-16 16 z" fill="#e2e8f0" stroke="#8b0000" stroke-width="1"/>
+                  </svg>
+                </div>
+                <div class="weapon-info-text">
+                  <strong id="stats-weapon-name">KATANA</strong>
+                  <p id="stats-weapon-desc">A swift, deadly katana. Fast attacks, higher block chance.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- PASSIVE PERK CARD -->
+            <div class="stats-card-box passive-card-box">
+              <label class="card-box-label">PASSIVE:</label>
+              <strong id="stats-passive-name" class="passive-title">HONORABLE SPIRIT</strong>
+              <p id="stats-passive-desc" class="passive-desc">+10% к критическому урону в ближнем бою.</p>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Bottom Horizontal Character Selection Strip -->
+        <div class="bottom-carousel-container">
+          <button id="carousel-btn-left" class="carousel-scroll-arrow arrow-left">◀</button>
+          <div id="skin-carousel-strip" class="skin-carousel-strip"></div>
+          <button id="carousel-btn-right" class="carousel-scroll-arrow arrow-right">▶</button>
+        </div>
+
+      </div>
+
+      <!-- ULTRA-PROPOSED JAPANESE FEUDAL LEVEL & GAME MODE SELECTION SCREEN -->
+      <div id="screen-level-select" class="ui-screen">
+        
+        <!-- Ambient Wallpaper Blur Backdrop -->
+        <div class="level-backdrop-shrine"></div>
+
+        <!-- Top Title Header & Mode Switch Tabs -->
+        <div class="level-screen-top-bar">
+          <div class="top-kanji-watermark">合戦</div>
+          <h1 class="level-main-title">LEVEL & GAME MODE SELECTION</h1>
+
+          <div class="mode-navigation-tabs">
+            <button id="tab-mode-campaign" class="mode-nav-tab active">
+              <span class="tab-badge">12 STAGE CAMPAIGN</span>
+            </button>
+            <button id="tab-mode-endless" class="mode-nav-tab">
+              <span class="tab-badge">ENDLESS SURVIVAL MODE</span>
+            </button>
           </div>
         </div>
+
+        <!-- Main Screen Body: 3x4 Stage Grid (Left) + Stage Details & Boss Panel (Right) -->
+        <div class="level-selection-body">
+          
+          <!-- Left Column: Stage/Mode Grid -->
+          <div class="stages-grid-column">
+            <div id="stage-cards-container" class="stage-cards-grid">
+              <!-- Dynamically populated 12 Stage Cards or 4 Endless Mode Scroll Cards -->
+            </div>
+          </div>
+
+          <!-- Right Column: Boss Showcase & Stage Details Scroll Panel -->
+          <div class="stage-details-panel">
+            <div class="panel-kanji-watermark">鬼神</div>
+            
+            <!-- Top Boss Showcase Frame -->
+            <div class="boss-showcase-box">
+              <div id="boss-avatar-frame" class="boss-avatar-frame">
+                <!-- Boss 2D Pixel Icon -->
+              </div>
+
+              <div class="boss-title-wrap">
+                <h3 id="panel-boss-name">AKA-ONI</h3>
+                
+                <!-- Boss Health Hearts Row -->
+                <div id="boss-hearts-row" class="boss-hearts-row">
+                  <svg class="heart-icon active" viewBox="0 0 24 24" width="16" height="16"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#ff3333"/></svg>
+                  <svg class="heart-icon active" viewBox="0 0 24 24" width="16" height="16"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#ff3333"/></svg>
+                  <svg class="heart-icon active" viewBox="0 0 24 24" width="16" height="16"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#ff3333"/></svg>
+                  <svg class="heart-icon empty" viewBox="0 0 24 24" width="16" height="16"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#444455"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stage Title & Description -->
+            <div class="stage-info-text-box">
+              <h2 id="panel-stage-title">STAGE 3: SHINOBI VILLAGE</h2>
+              <p id="panel-stage-desc">Infiltrate the village, defeat the guards and purge the yokai shadow!</p>
+              <div id="panel-stage-rewards" class="stage-rewards-badge">REWARD: 💰 350 KOBAN | +300 XP</div>
+            </div>
+
+            <!-- Enemy List Section -->
+            <div class="enemy-list-section">
+              <label class="enemy-list-label">ENEMY LIST:</label>
+              <div id="enemy-badges-row" class="enemy-badges-row">
+                <!-- 4 Enemy badges: Ninja, Samurai, Archer, Oni Brute -->
+              </div>
+            </div>
+
+            <!-- Action Buttons Area -->
+            <div class="stage-panel-actions">
+              <!-- Big Green START RUN Button -->
+              <button id="btn-launch-run" class="pixel-btn btn-green-launch">
+                <div class="btn-border-inner">
+                  <span class="btn-text">START RUN</span>
+                  <span class="btn-sub">CLICK TO START</span>
+                </div>
+              </button>
+
+              <div class="stage-sub-buttons">
+                <span id="panel-diff-badge" class="diff-badge">NORMAL (★★☆☆☆)</span>
+                <button class="pixel-btn btn-wood btn-back" style="width:120px;">
+                  <div class="btn-border-inner"><span class="btn-text">CLOSE</span></div>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Bottom Bar (Interactive CHARACTER Badge) -->
+        <div class="level-screen-bottom-bar">
+          <div class="bottom-player-badge">
+            <span class="player-label">CHARACTER:</span>
+            <button id="btn-quick-change-hero" class="player-skin-pill-btn" title="Click to change skin">
+              <span id="bottom-player-avatar-icon" class="pill-avatar-icon"></span>
+              <span id="bottom-player-skin-name">SAMURAI</span>
+              <span class="pill-change-hint">(CHANGE)</span>
+            </button>
+          </div>
+        </div>
+
       </div>
 
       <!-- Codex & Lore Screen -->
       <div id="screen-codex" class="ui-screen">
         <div class="screen-header">
           <h2>ЭНЦИКЛОПЕДИЯ И ЛОР ИГРЫ</h2>
-          <button class="btn-back">⬅ НАЗАД</button>
+          <button class="pixel-btn btn-wood btn-back" style="width:160px;">
+            <div class="btn-border-inner"><span class="btn-text">⬅ НАЗАД</span></div>
+          </button>
         </div>
 
-        <div class="mode-tabs">
-          <button id="codex-tab-weapons" class="tab-btn active">🗡️ 15 ОРУЖИЙ</button>
-          <button id="codex-tab-abilities" class="tab-btn">📜 20 СПОСОБНОСТЕЙ</button>
-          <button id="codex-tab-yokai" class="tab-btn">👹 35 ЁКАЕВ</button>
-          <button id="codex-tab-lore" class="tab-btn">⛩️ ЛОР И ИСТОРИЯ</button>
+        <div class="mode-tabs codex-tabs">
+          <button id="codex-tab-weapons" class="codex-tab-btn active">
+            <span>15 ОРУЖИЙ</span>
+          </button>
+          <button id="codex-tab-abilities" class="codex-tab-btn">
+            <span>20 СПОСОБНОСТЕЙ</span>
+          </button>
+          <button id="codex-tab-yokai" class="codex-tab-btn">
+            <span>35 ЁКАЕВ</span>
+          </button>
+          <button id="codex-tab-lore" class="codex-tab-btn">
+            <span>ЛОР И ИСТОРИЯ</span>
+          </button>
         </div>
 
-        <div id="codex-content-area" class="codex-content-box">
-          <!-- Dynamically rendered -->
-        </div>
+        <div id="codex-content-area" class="codex-content-box"></div>
       </div>
 
-      <!-- Level & Mode Select Screen -->
-      <div id="screen-level-select" class="ui-screen">
-        <div class="screen-header">
-          <h2>ВЫБОР ЭТАПА И РЕЖИМА</h2>
-          <button class="btn-back">⬅ НАЗАД</button>
-        </div>
-
-        <div class="mode-tabs">
-          <button id="tab-mode-campaign" class="tab-btn active">📜 12 ЭТАПОВ КАМПАНИИ</button>
-          <button id="tab-mode-endless" class="tab-btn">🔥 БЕСКОНЕЧНЫЙ РЕЖИМ</button>
-        </div>
-
-        <div id="levels-grid" class="levels-grid">
-          <!-- Dynamically populated 12 levels -->
-        </div>
-
-        <div class="level-start-panel">
-          <div class="level-info-text">
-            <h3 id="selected-level-title">Этап 1: Разрушенные Врата Камакуры</h3>
-            <p id="selected-level-desc">Горящие пагоды, разрушенные стены и первая волна ёкаев.</p>
-          </div>
-          <button id="btn-launch-level" class="btn btn-primary">НАЧАТЬ ЭТАП</button>
-        </div>
-      </div>
-
-      <!-- Settings Screen -->
+      <!-- Dedicated Settings Screen -->
       <div id="screen-settings" class="ui-screen">
-        <div class="screen-header">
-          <h2>НАСТРОЙКИ ИГРЫ</h2>
-          <button class="btn-back">⬅ НАЗАД</button>
-        </div>
+        <div class="pixel-scroll-wrapper">
+          <div class="pixel-scroll-pillar pillar-l">
+            <div class="roller-cap cap-top"></div>
+            <div class="roller-wood"></div>
+            <div class="roller-cap cap-bottom"></div>
+          </div>
 
-        <div class="settings-box">
-          <div class="setting-row">
-            <label>Громкость Звуков (SFX):</label>
-            <input type="range" id="setting-sfx" min="0" max="100" value="80">
+          <div class="pixel-parchment-container">
+            <div class="pixel-kanji-watermark">設定</div>
+            <div class="pixel-settings-tabs">
+              <button id="settings-tab-audio" class="pixel-tab-item active"><span class="tab-label">AUDIO</span></button>
+              <button id="settings-tab-graphics" class="pixel-tab-item"><span class="tab-label">GRAPHICS</span></button>
+              <button id="settings-tab-controls" class="pixel-tab-item"><span class="tab-label">CONTROLS</span></button>
+              <button id="settings-tab-gameplay" class="pixel-tab-item"><span class="tab-label">GAMEPLAY</span></button>
+            </div>
+
+            <div id="settings-rows-container" class="pixel-settings-rows"></div>
+
+            <div class="pixel-scroll-actions">
+              <button id="btn-apply-settings" class="pixel-btn btn-gold" style="width:170px;"><div class="btn-border-inner"><span class="btn-text">APPLY</span></div></button>
+              <button class="pixel-btn btn-wood btn-back" style="width:140px;"><div class="btn-border-inner"><span class="btn-text">BACK</span></div></button>
+            </div>
           </div>
-          <div class="setting-row">
-            <label>Громкость Музыки:</label>
-            <input type="range" id="setting-music" min="0" max="100" value="60">
-          </div>
-          <div class="setting-row">
-            <label>Сила 3D Pixel-Шейдера:</label>
-            <input type="range" id="setting-pixel" min="1" max="5" value="2">
-          </div>
-          <div class="setting-row">
-            <label>Авто-атака мыши:</label>
-            <input type="checkbox" id="setting-autoaim" checked>
+
+          <div class="pixel-scroll-pillar pillar-r">
+            <div class="roller-cap cap-top"></div>
+            <div class="roller-wood"></div>
+            <div class="roller-cap cap-bottom"></div>
           </div>
         </div>
       </div>
@@ -237,7 +456,7 @@
           <div class="hud-hp-box">
             <span class="hp-label">HP</span>
             <div class="hp-bar-outer"><div id="hud-hp-fill" class="hp-fill" style="width: 100%;"></div></div>
-            <span id="hud-hp-text">100/100</span>
+            <span id="hud-hp-text">240/240</span>
           </div>
 
           <div class="hud-xp-box">
@@ -246,9 +465,27 @@
           </div>
 
           <div class="hud-counters">
-            <div class="counter-item">💰 Кобаны: <strong id="hud-gold-earned">0</strong></div>
-            <div class="counter-item">💀 Убито: <strong id="hud-kills">0</strong></div>
-            <div class="counter-item">⏱ Время: <strong id="hud-timer">00:00</strong></div>
+            <div class="counter-item">
+              <svg class="pixel-icon" viewBox="0 0 24 24" width="16" height="16">
+                <ellipse cx="12" cy="12" rx="7" ry="10" fill="#ffd700" stroke="#b8860b" stroke-width="1.5"/>
+              </svg>
+              <strong id="hud-gold-earned">0</strong>
+            </div>
+            <div class="counter-item">
+              <svg class="pixel-icon" viewBox="0 0 24 24" width="16" height="16">
+                <path d="M6 5 h12 v2 h2 v6 h-2 v3 h-3 v3 h-6 v-3 h-3 v-3 h-2 v-6 h2 z" fill="#f0e6d2"/>
+                <rect x="8" y="9" width="3" height="4" fill="#100505"/>
+                <rect x="13" y="9" width="3" height="4" fill="#100505"/>
+              </svg>
+              <strong id="hud-kills">0</strong>
+            </div>
+            <div class="counter-item">
+              <svg class="pixel-icon" viewBox="0 0 24 24" width="16" height="16">
+                <circle cx="12" cy="12" r="8" fill="none" stroke="#ffd700" stroke-width="2"/>
+                <path d="M12 7 v5 l3 2" fill="none" stroke="#ffd700" stroke-width="2"/>
+              </svg>
+              <strong id="hud-timer">00:00</strong>
+            </div>
           </div>
         </div>
 
@@ -273,7 +510,7 @@
         </div>
 
         <div class="hud-controls-hint">
-          <span>WASD — Передвижение</span> | <span>Мышь — Направление атаки</span> | <span>Пробел — Рывок</span>
+          <span>WASD — Передвижение</span> | <span>Мышь — Атака</span> | <span>Пробел — Рывок</span>
         </div>
       </div>
 
@@ -285,13 +522,29 @@
             <p>Выберите одно из предложенных усовершенствований:</p>
           </div>
 
-          <div id="cards-container" class="cards-container">
-            <!-- 3 random cards -->
-          </div>
+          <div id="cards-container" class="cards-container"></div>
 
           <div class="levelup-actions">
-            <button id="btn-reroll-cards" class="btn btn-secondary">🎲 РЕРОЛЛ (Осталось: <span id="reroll-count">1</span>)</button>
-            <button id="btn-skip-cards" class="btn btn-danger">❌ ПРОПУСТИТЬ ВЫБОР</button>
+            <button id="btn-reroll-cards" class="pixel-btn btn-wood" style="width:200px;">
+              <div class="btn-border-inner">
+                <span class="btn-text">
+                  <svg class="pixel-icon" viewBox="0 0 24 24" width="16" height="16" style="vertical-align:middle; margin-right:4px;">
+                    <rect x="4" y="4" width="16" height="16" rx="3" fill="#ffffff" stroke="#b8860b" stroke-width="2"/>
+                    <circle cx="8" cy="8" r="1.5" fill="#111"/>
+                    <circle cx="16" cy="16" r="1.5" fill="#111"/>
+                  </svg> РЕРОЛЛ (<span id="reroll-count">1</span>)
+                </span>
+              </div>
+            </button>
+            <button id="btn-skip-cards" class="pixel-btn btn-red" style="width:200px;">
+              <div class="btn-border-inner">
+                <span class="btn-text">
+                  <svg class="pixel-icon" viewBox="0 0 24 24" width="14" height="14" style="vertical-align:middle; margin-right:4px;">
+                    <path d="M4 4 l16 16 M20 4 l-16 16" stroke="#ff3333" stroke-width="3"/>
+                  </svg> ПРОПУСТИТЬ
+                </span>
+              </div>
+            </button>
           </div>
         </div>
       </div>
@@ -299,9 +552,9 @@
       <!-- Chapter Loading Screen Overlay -->
       <div id="screen-chapter-intro" class="ui-screen">
         <div class="chapter-intro-content">
-          <div id="chapter-subtitle" class="chapter-sub">ГЛАВА I</div>
-          <h1 id="chapter-title" class="chapter-title">РАЗРУШЕННЫЕ ВРАТА КАМАКУРЫ</h1>
-          <p id="chapter-lore" class="chapter-quote">«Пепел и Кровь охватили святую землю эпохи Камакура...»</p>
+          <div id="chapter-subtitle" class="chapter-sub">STAGE 1</div>
+          <h1 id="chapter-title" class="chapter-title">KAMAKURA RUINS</h1>
+          <p id="chapter-lore" class="chapter-quote">«Ashes and blood cover the sacred grounds of Kamakura...»</p>
           <div class="loading-spinner"></div>
         </div>
       </div>
@@ -315,11 +568,11 @@
             <p class="subtext">Достижения самурая в битве с тьмой Yomi</p>
           </div>
 
-          <div id="stats-grid-container" class="stats-grid">
-            <!-- Dynamically populated 8 stat cards with custom SVG icons -->
-          </div>
+          <div id="stats-grid-container" class="stats-grid"></div>
 
-          <button id="btn-close-stats" class="btn btn-primary" style="margin-top:20px;">ЗАКРЫТЬ СВИТОК</button>
+          <button id="btn-close-stats" class="pixel-btn btn-gold" style="width:260px; margin: 20px auto 0;">
+            <div class="btn-border-inner"><span class="btn-text">ЗАКРЫТЬ СВИТОК</span></div>
+          </button>
         </div>
       </div>
 
@@ -331,11 +584,13 @@
 
           <div class="result-stats">
             <div>Убито демонов: <strong id="res-kills">0</strong></div>
-            <div>Заработано Кобанов: <strong id="res-gold">+0 💰</strong></div>
+            <div>Заработано Кобанов: <strong id="res-gold">+0 Koban</strong></div>
             <div>Получено XP профиля: <strong id="res-xp">+0 XP</strong></div>
           </div>
 
-          <button id="btn-restart-run" class="btn btn-primary">ГЛАВНОЕ МЕНЮ</button>
+          <button id="btn-restart-run" class="pixel-btn btn-gold" style="width:240px; margin:16px auto 0;">
+            <div class="btn-border-inner"><span class="btn-text">ГЛАВНОЕ МЕНЮ</span></div>
+          </button>
         </div>
       </div>
 
