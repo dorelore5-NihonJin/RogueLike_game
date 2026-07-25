@@ -16,17 +16,17 @@
     <!-- UI Overlay System -->
     <div id="ui-overlay">
 
-      <!-- Corner Frame Ornaments -->
-      <div class="corner-frame corner-tl"></div>
-      <div class="corner-frame corner-tr"></div>
-      <div class="corner-frame corner-bl"></div>
-      <div class="corner-frame corner-br"></div>
+      <!-- Ornate Japanese Lattice Corner Frames -->
+      <div class="ornate-corner corner-tl"></div>
+      <div class="ornate-corner corner-tr"></div>
+      <div class="ornate-corner corner-bl"></div>
+      <div class="ornate-corner corner-br"></div>
 
-      <!-- Dedicated Main Menu Background Slideshow (8 Wallpapers, Slow 12s Transition) -->
+      <!-- Dedicated Main Menu Background Slideshow -->
       <div id="menu-bg-slideshow" class="menu-bg-slideshow">
-        <div class="bg-slide active" style="background-image: url('./assets/menu_wallpapers/menu_bg_1.jpg');"></div>
-        <div class="bg-slide" style="background-image: url('./assets/menu_wallpapers/menu_bg_2.jpg');"></div>
+        <div class="bg-slide active" style="background-image: url('./assets/menu_wallpapers/menu_bg_2.jpg');"></div>
         <div class="bg-slide" style="background-image: url('./assets/menu_wallpapers/menu_bg_3.jpg');"></div>
+        <div class="bg-slide" style="background-image: url('./assets/menu_wallpapers/menu_bg_1.jpg');"></div>
         <div class="bg-slide" style="background-image: url('./assets/menu_wallpapers/menu_bg_4.jpg');"></div>
         <div class="bg-slide" style="background-image: url('./assets/menu_wallpapers/menu_bg_5.jpg');"></div>
         <div class="bg-slide" style="background-image: url('./assets/menu_wallpapers/menu_bg_6.jpg');"></div>
@@ -36,43 +36,97 @@
 
       <!-- Main Menu Screen -->
       <div id="screen-main-menu" class="ui-screen active">
+        <!-- Title Branding Section matching Reference -->
         <div class="menu-brand">
-          <div class="japan-kanji">妖怪</div>
+          <div class="japan-kanji-top">妖怪</div>
           <h1 class="game-title">KAGE NO YOKAI:</h1>
           <div class="game-year">1200 AD</div>
         </div>
 
+        <!-- Vertical Menu Buttons Section -->
         <div class="menu-buttons-vertical">
-          <!-- Primary Glow Button -->
-          <button id="btn-start-run" class="menu-btn btn-gold-main">
-            <span class="btn-text">PLAY GAME</span>
-            <span class="btn-sub">START ADVENTURE</span>
+          <!-- 1. Main Gold PLAY GAME Button -->
+          <button id="btn-start-run" class="pixel-btn btn-gold">
+            <div class="btn-border-inner">
+              <span class="btn-text">PLAY GAME</span>
+              <span class="btn-sub">START ADVENTURE</span>
+            </div>
           </button>
 
-          <!-- Secondary Wooden Buttons -->
-          <button id="btn-select-skin" class="menu-btn btn-wood">
-            <span class="btn-text">CHARACTER & SKINS</span>
+          <!-- 2. Wooden Button: CHARACTER & SKINS -->
+          <button id="btn-select-skin" class="pixel-btn btn-wood">
+            <div class="btn-border-inner">
+              <span class="btn-text">CHARACTER & SKINS</span>
+            </div>
           </button>
 
-          <button id="btn-select-level" class="menu-btn btn-wood icon-btn">
-            <span class="btn-icon-left">🏯</span>
-            <span class="btn-text">CAMPAIGN / ENDLESS</span>
-            <span class="btn-icon-right">💀</span>
+          <!-- 3. Wooden Button with Custom Pixel SVGs: CAMPAIGN / ENDLESS -->
+          <button id="btn-select-level" class="pixel-btn btn-wood icon-btn">
+            <div class="btn-border-inner">
+              <svg class="pixel-icon icon-samurai" viewBox="0 0 24 24" width="22" height="22">
+                <path d="M4 4 h3 v2 h-3 z M17 4 h3 v2 h-3 z M6 6 h3 v2 h-3 z M15 6 h3 v2 h-3 z M8 8 h8 v2 h-8 z" fill="#ffd700"/>
+                <path d="M7 10 h10 v6 h-10 z" fill="#8b0000"/>
+                <path d="M9 12 h6 v3 h-6 z" fill="#d4af37"/>
+                <path d="M8 16 h8 v4 h-8 z" fill="#1a1a24"/>
+                <circle cx="10" cy="18" r="1" fill="#ff3333"/>
+                <circle cx="14" cy="18" r="1" fill="#ff3333"/>
+              </svg>
+
+              <span class="btn-text single-line">CAMPAIGN / ENDLESS</span>
+
+              <svg class="pixel-icon icon-skull" viewBox="0 0 24 24" width="22" height="22">
+                <path d="M6 5 h12 v2 h2 v6 h-2 v3 h-3 v3 h-6 v-3 h-3 v-3 h-2 v-6 h2 z" fill="#f0e6d2"/>
+                <rect x="8" y="9" width="3" height="4" fill="#100505"/>
+                <rect x="13" y="9" width="3" height="4" fill="#100505"/>
+                <rect x="9" y="10" width="1" height="2" fill="#ff3333"/>
+                <rect x="14" y="10" width="1" height="2" fill="#ff3333"/>
+                <rect x="10" y="16" width="1" height="2" fill="#100505"/>
+                <rect x="13" y="16" width="1" height="2" fill="#100505"/>
+              </svg>
+            </div>
           </button>
 
-          <button id="btn-open-settings" class="menu-btn btn-wood">
-            <span class="btn-text">SETTINGS</span>
+          <!-- 4. Wooden Button: CODEX & LORE -->
+          <button id="btn-open-codex" class="pixel-btn btn-wood">
+            <div class="btn-border-inner">
+              <span class="btn-text">CODEX & LORE</span>
+            </div>
           </button>
 
-          <button id="btn-exit" class="menu-btn btn-red-wood">
-            <span class="btn-text">EXIT</span>
+          <!-- 5. Wooden Button: SETTINGS -->
+          <button id="btn-open-settings" class="pixel-btn btn-wood">
+            <div class="btn-border-inner">
+              <span class="btn-text">SETTINGS</span>
+            </div>
+          </button>
+
+          <!-- 6. Red Button: EXIT -->
+          <button id="btn-exit" class="pixel-btn btn-red">
+            <div class="btn-border-inner">
+              <span class="btn-text">EXIT</span>
+            </div>
           </button>
         </div>
 
-        <div class="account-meta-badge">
-          <span class="label">УРОВЕНЬ ПРОФИЛЯ:</span>
-          <span id="account-level-val" class="value">1</span>
-          <div class="meta-xp-bar"><div id="account-xp-fill" class="fill" style="width: 25%;"></div></div>
+        <!-- Account Level & Koban Gold Meta Badge (Positioned inside corner frame) -->
+        <div id="account-badge" class="account-meta-badge">
+          <div class="badge-border-inner">
+            <div class="badge-row">
+              <span class="label">УРОВЕНЬ ПРОФИЛЯ: <strong id="account-level-val">1</strong></span>
+              
+              <div class="koban-pill">
+                <!-- Custom Pixel Koban Gold Coin SVG -->
+                <svg class="pixel-icon icon-koban" viewBox="0 0 24 24" width="18" height="18">
+                  <ellipse cx="12" cy="12" rx="7" ry="10" fill="#ffd700" stroke="#b8860b" stroke-width="1.5"/>
+                  <line x1="8" y1="6" x2="16" y2="6" stroke="#b8860b" stroke-width="1"/>
+                  <line x1="8" y1="18" x2="16" y2="18" stroke="#b8860b" stroke-width="1"/>
+                  <path d="M10 9 h4 v2 h-4 z M11 11 h2 v4 h-2 z M9 15 h6 v1 h-6 z" fill="#8b6514"/>
+                </svg>
+                <span class="gold-val"><strong id="account-gold-val">500</strong> Koban</span>
+              </div>
+            </div>
+            <div class="meta-xp-bar"><div id="account-xp-fill" class="fill" style="width: 25%;"></div></div>
+          </div>
         </div>
       </div>
 
@@ -98,9 +152,30 @@
               <strong id="skin-detail-weapon">Катана</strong>
             </div>
             <p id="skin-detail-passive" class="passive-desc">+10% к шансу критического удара в ближнем бою.</p>
+            <div id="skin-detail-price" class="skin-price-tag">Бесплатно</div>
 
             <button id="btn-confirm-skin" class="btn btn-primary">ВЫБРАТЬ ДАННОГО ВОИНА</button>
+            <button id="btn-buy-skin" class="btn btn-gold" style="display:none;">💰 КУПИТЬ СКИН</button>
           </div>
+        </div>
+      </div>
+
+      <!-- Codex & Lore Screen -->
+      <div id="screen-codex" class="ui-screen">
+        <div class="screen-header">
+          <h2>ЭНЦИКЛОПЕДИЯ И ЛОР ИГРЫ</h2>
+          <button class="btn-back">⬅ НАЗАД</button>
+        </div>
+
+        <div class="mode-tabs">
+          <button id="codex-tab-weapons" class="tab-btn active">🗡️ 15 ОРУЖИЙ</button>
+          <button id="codex-tab-abilities" class="tab-btn">📜 20 СПОСОБНОСТЕЙ</button>
+          <button id="codex-tab-yokai" class="tab-btn">👹 35 ЁКАЕВ</button>
+          <button id="codex-tab-lore" class="tab-btn">⛩️ ЛОР И ИСТОРИЯ</button>
+        </div>
+
+        <div id="codex-content-area" class="codex-content-box">
+          <!-- Dynamically rendered -->
         </div>
       </div>
 
@@ -171,6 +246,7 @@
           </div>
 
           <div class="hud-counters">
+            <div class="counter-item">💰 Кобаны: <strong id="hud-gold-earned">0</strong></div>
             <div class="counter-item">💀 Убито: <strong id="hud-kills">0</strong></div>
             <div class="counter-item">⏱ Время: <strong id="hud-timer">00:00</strong></div>
           </div>
@@ -230,6 +306,23 @@
         </div>
       </div>
 
+      <!-- Japanese Scroll Profile Stats Modal -->
+      <div id="modal-profile-stats" class="ui-modal">
+        <div class="modal-content stats-scroll-box">
+          <div class="stats-scroll-header">
+            <div class="japan-kanji-sub">戦績</div>
+            <h2>СВИТОК СЛАВЫ И СТАТИСТИКИ</h2>
+            <p class="subtext">Достижения самурая в битве с тьмой Yomi</p>
+          </div>
+
+          <div id="stats-grid-container" class="stats-grid">
+            <!-- Dynamically populated 8 stat cards with custom SVG icons -->
+          </div>
+
+          <button id="btn-close-stats" class="btn btn-primary" style="margin-top:20px;">ЗАКРЫТЬ СВИТОК</button>
+        </div>
+      </div>
+
       <!-- Game Over Modal -->
       <div id="modal-gameover" class="ui-modal">
         <div class="modal-content result-box">
@@ -238,7 +331,7 @@
 
           <div class="result-stats">
             <div>Убито демонов: <strong id="res-kills">0</strong></div>
-            <div>Пройдено волн: <strong id="res-waves">0</strong></div>
+            <div>Заработано Кобанов: <strong id="res-gold">+0 💰</strong></div>
             <div>Получено XP профиля: <strong id="res-xp">+0 XP</strong></div>
           </div>
 

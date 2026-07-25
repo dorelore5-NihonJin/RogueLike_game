@@ -38,6 +38,12 @@ class GameApp {
       requestAnimationFrame(loop);
 
       const delta = this.clock.getDelta();
+      const time = this.clock.getElapsedTime();
+
+      if (!this.isRunning) {
+        // Animate live 3D menu background when in Main Menu!
+        this.renderer.animateMenuEnvironment(time);
+      }
 
       if (this.isRunning && !this.isPaused) {
         gameState.runTimeSeconds += delta;

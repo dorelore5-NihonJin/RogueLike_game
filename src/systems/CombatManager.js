@@ -1,7 +1,7 @@
 import * as THREE from 'three';
-import { PixelMeshGenerator } from '../models/PixelMeshGenerator.js';
 import { gameState } from './GameState.js';
 import { audio } from './AudioSynthesizer.js';
+import { PixelMeshGenerator } from '../models/PixelMeshGenerator.js';
 
 export class CombatManager {
   constructor(scene, camera, controls) {
@@ -9,227 +9,212 @@ export class CombatManager {
     this.camera = camera;
     this.controls = controls;
 
-    this.playerGroup = null;
+    this.playerMesh = null;
     this.enemies = [];
     this.projectiles = [];
     this.expOrbs = [];
 
-    this.attackCooldown = 0;
     this.spawnTimer = 0;
-
-    this.setupGroundPlane();
-  }
-
-  setupGroundPlane() {
-    // 3D Arena Ground Plane
-    const groundGeo = new THREE.PlaneGeometry(100, 100);
-    const groundMat = new THREE.MeshStandardMaterial({ 
-      color: 0x191428, 
-      roughness: 0.8,
-      metalness: 0.1
-    });
-    this.ground = new THREE.Mesh(groundGeo, groundMat);
-    this.ground.rotation.x = -Math.PI / 2;
-    this.ground.receiveShadow = true;
-    this.scene.add(this.ground);
-
-    // Decorative Torii Gates
-    const t1 = PixelMeshGenerator.createToriiGate();
-    t1.position.set(0, 0, -20);
-    this.scene.add(t1);
-
-    // Sakura Trees
-    const tree1 = PixelMeshGenerator.createSakuraTree();
-    tree1.position.set(-15, 0, -10);
-    this.scene.add(tree1);
-
-    const tree2 = PixelMeshGenerator.createSakuraTree();
-    tree2.position.set(15, 0, -10);
-    this.scene.add(tree2);
-  }
-
-  initPlayer(skinId) {
-    if (this.playerGroup) {
-      this.scene.remove(this.playerGroup);
-    }
-
-    if (skinId === 'ninja') {
-      this.playerGroup = PixelMeshGenerator.createNinjaModel();
-    } else if (skinId === 'archer') {
-      this.playerGroup = PixelMeshGenerator.createArcherModel();
-    } else {
-      this.playerGroup = PixelMeshGenerator.createSamuraiModel('#1a365d');
-    }
-
-    this.playerGroup.position.set(0, 0, 0);
-    this.scene.add(this.playerGroup);
+    this.attackTimer = 0;
   }
 
   clearRunEntities() {
+    if (this.playerMesh) {
+      this.scene.remove(this.playerMesh);
+      this.playerMesh = null;
+    }
+
     this.enemies.forEach(e => this.scene.remove(e.mesh));
     this.projectiles.forEach(p => this.scene.remove(p.mesh));
     this.expOrbs.forEach(o => this.scene.remove(o.mesh));
+
     this.enemies = [];
     this.projectiles = [];
     this.expOrbs = [];
   }
 
-  spawnEnemy() {
-    const angle = Math.random() * Math.PI * 2;
-    const radius = 22 + Math.random() * 8;
-    const posX = this.playerGroup.position.x + Math.cos(angle) * radius;
-    const posZ = this.playerGroup.position.z + Math.sin(angle) * radius;
-
-    const isBoss = (gameState.kills > 0 && gameState.kills % 50 === 0);
-    let mesh;
-    let hp = 30;
-    let speed = 4.0;
-    let enemyType = 'gaki';
-
-    if (isBoss) {
-      mesh = PixelMeshGenerator.createAkaOniModel();
-      hp = 400;
-      speed = 2.5;
-      enemyType = 'boss_oni';
-    } else {
-      mesh = PixelMeshGenerator.createGakiModel();
-    }
-
-    mesh.position.set(posX, 0, posZ);
-    this.scene.add(mesh);
-
-    this.enemies.push({ mesh, hp, maxHp: hp, speed, enemyType });
-  }
-
-  playerAttack() {
-    const aimTarget = this.controls.mouseWorldPos;
-    const pPos = this.playerGroup.position;
-    const dir = new THREE.Vector3().subVectors(aimTarget, pPos).setY(0).normalize();
-
-    // Create Slash / Arrow Projectile
-    const projGeo = new THREE.BoxGeometry(0.6, 0.2, 1.2);
-    const projMat = new THREE.MeshBasicMaterial({ color: 0x00ffff });
-    const projMesh = new THREE.Mesh(projGeo, projMat);
-
-    projMesh.position.copy(pPos).add(new THREE.Vector3(0, 1.0, 0));
-    projMesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), dir);
-    this.scene.add(projMesh);
-
-    this.projectiles.push({
-      mesh: projMesh,
-      dir: dir,
-      speed: 25.0,
-      life: 1.0,
-      damage: 25
-    });
-
-    audio.playSwordSlash();
-  }
-
-  spawnExpOrb(position) {
-    const geo = new THREE.DodecahedronGeometry(0.25);
-    const mat = new THREE.MeshBasicMaterial({ color: 0xffd700 });
-    const mesh = new THREE.Mesh(geo, mat);
-    mesh.position.copy(position).setY(0.4);
-    this.scene.add(mesh);
-    this.expOrbs.push({ mesh, value: 5 });
+  initPlayer(skinId) {
+    this.playerMesh = PixelMeshGenerator.createSamuraiModel(
+      skinId === 'ninja' ? '#111827' : (skinId === 'archer' ? '#065f46' : '#1a365d')
+    );
+    this.playerMesh.position.set(0, 0, 0);
+    this.scene.add(this.playerMesh);
   }
 
   update(delta, onLevelUp) {
-    if (!this.playerGroup) return;
+    if (!this.playerMesh) return;
 
-    // 1. Player WASD Movement & Aim Rotation
-    const moveVec = this.controls.getMovementVector();
-    this.playerGroup.position.x += moveVec.x * gameState.speed * delta;
-    this.playerGroup.position.z += moveVec.z * gameState.speed * delta;
+    // 1. Player WASD Movement
+    const speed = 8.5 * delta;
+    const moveDir = this.controls.getMovementDirection();
+    this.playerMesh.position.x += moveDir.x * speed;
+    this.playerMesh.position.z += moveDir.z * speed;
 
-    // Keep camera following player
-    this.camera.position.x = this.playerGroup.position.x;
-    this.camera.position.z = this.playerGroup.position.z + 18;
-
-    // Look at mouse
-    const aimTarget = this.controls.mouseWorldPos;
-    const dx = aimTarget.x - this.playerGroup.position.x;
-    const dz = aimTarget.z - this.playerGroup.position.z;
-    this.playerGroup.rotation.y = Math.atan2(dx, dz);
-
-    // 2. Attack cooldown
-    this.attackCooldown -= delta;
-    if (this.attackCooldown <= 0) {
-      this.playerAttack();
-      this.attackCooldown = 0.45; // ~2.2 attacks/sec
+    // Player Rotation to Mouse Raycast Ground Target
+    const mouseTarget = this.controls.getMouseGroundTarget();
+    if (mouseTarget) {
+      const dx = mouseTarget.x - this.playerMesh.position.x;
+      const dz = mouseTarget.z - this.playerMesh.position.z;
+      this.playerMesh.rotation.y = Math.atan2(dx, dz);
     }
 
-    // 3. Enemy Spawning
+    // Camera follow player smoothly
+    this.camera.position.x = this.playerMesh.position.x;
+    this.camera.position.z = this.playerMesh.position.z + 18;
+    this.camera.lookAt(this.playerMesh.position.x, 1, this.playerMesh.position.z);
+
+    // 2. Auto-Attacks
+    this.attackTimer += delta;
+    if (this.attackTimer >= 0.8) {
+      this.attackTimer = 0;
+      this.performPlayerAttack(mouseTarget);
+    }
+
+    // 3. Enemy Spawning Wave System
     this.spawnTimer += delta;
-    if (this.spawnTimer > 1.2) {
-      this.spawnEnemy();
+    if (this.spawnTimer >= 1.5 && this.enemies.length < 25) {
       this.spawnTimer = 0;
+      this.spawnEnemyWave();
     }
 
-    // 4. Update Projectiles
-    for (let i = this.projectiles.length - 1; i >= 0; i--) {
-      const p = this.projectiles[i];
-      p.mesh.position.addScaledVector(p.dir, p.speed * delta);
-      p.life -= delta;
+    // 4. Update Enemies AI
+    for (let i = this.enemies.length - 1; i >= 0; i--) {
+      const enemy = this.enemies[i];
+      const ex = this.playerMesh.position.x - enemy.mesh.position.x;
+      const ez = this.playerMesh.position.z - enemy.mesh.position.z;
+      const dist = Math.hypot(ex, ez);
 
-      // Check hit against enemies
-      let hit = false;
-      for (let j = this.enemies.length - 1; j >= 0; j--) {
-        const e = this.enemies[j];
-        const dist = p.mesh.position.distanceTo(e.mesh.position);
-        if (dist < 1.4) {
-          e.hp -= p.damage;
-          audio.playHit();
-          hit = true;
-
-          if (e.hp <= 0) {
-            this.spawnExpOrb(e.mesh.position);
-            this.scene.remove(e.mesh);
-            this.enemies.splice(j, 1);
-            gameState.kills += 1;
-          }
-          break;
-        }
+      if (dist > 0.5) {
+        enemy.mesh.position.x += (ex / dist) * enemy.speed * delta;
+        enemy.mesh.position.z += (ez / dist) * enemy.speed * delta;
+        enemy.mesh.rotation.y = Math.atan2(ex, ez);
+      } else {
+        // Attack Player
+        gameState.hp -= enemy.damage * delta;
+        audio.playSwordSlash();
       }
 
-      if (hit || p.life <= 0) {
-        this.scene.remove(p.mesh);
+      // Check Enemy Death
+      if (enemy.hp <= 0) {
+        this.spawnEXPOrb(enemy.mesh.position);
+        this.scene.remove(enemy.mesh);
+        this.enemies.splice(i, 1);
+
+        gameState.kills += 1;
+        gameState.stats.totalKills += 1;
+        
+        // Award Koban Gold Coins!
+        const goldGain = Math.floor(Math.random() * 5) + 5;
+        gameState.addGold(goldGain);
+      }
+    }
+
+    // 5. Update Projectiles
+    for (let i = this.projectiles.length - 1; i >= 0; i--) {
+      const proj = this.projectiles[i];
+      proj.mesh.position.x += proj.dir.x * proj.speed * delta;
+      proj.mesh.position.z += proj.dir.z * proj.speed * delta;
+      proj.life -= delta;
+
+      // Check collision with enemies
+      this.enemies.forEach(e => {
+        const d = Math.hypot(e.mesh.position.x - proj.mesh.position.x, e.mesh.position.z - proj.mesh.position.z);
+        if (d < 1.2 && proj.life > 0) {
+          e.hp -= proj.damage;
+          proj.life = 0;
+          audio.playHit();
+        }
+      });
+
+      if (proj.life <= 0) {
+        this.scene.remove(proj.mesh);
         this.projectiles.splice(i, 1);
       }
     }
 
-    // 5. Update Enemies
-    for (let e of this.enemies) {
-      const eDir = new THREE.Vector3().subVectors(this.playerGroup.position, e.mesh.position).setY(0).normalize();
-      e.mesh.position.addScaledVector(eDir, e.speed * delta);
-      e.mesh.rotation.y = Math.atan2(eDir.x, eDir.z);
-
-      // Check damage to player
-      if (e.mesh.position.distanceTo(this.playerGroup.position) < 1.2) {
-        gameState.hp -= 10 * delta;
-        if (gameState.hp < 0) gameState.hp = 0;
-      }
-    }
-
-    // 6. Update Exp Orbs
+    // 6. Update EXP Soul Orbs Pickup
     for (let i = this.expOrbs.length - 1; i >= 0; i--) {
       const orb = this.expOrbs[i];
-      const dist = orb.mesh.position.distanceTo(this.playerGroup.position);
-      if (dist < 3.5) {
-        // Magnet pull
-        orb.mesh.position.lerp(this.playerGroup.position, delta * 8.0);
-      }
-      if (dist < 1.0) {
-        audio.playExpPick();
-        const levelUp = gameState.addXP(orb.value);
+      const dist = Math.hypot(orb.mesh.position.x - this.playerMesh.position.x, orb.mesh.position.z - this.playerMesh.position.z);
+
+      if (dist < 2.5) {
         this.scene.remove(orb.mesh);
         this.expOrbs.splice(i, 1);
-        if (levelUp && onLevelUp) {
+        audio.playExpPick();
+
+        gameState.currentXP += 25;
+        gameState.addAccountXP(10);
+
+        if (gameState.currentXP >= gameState.targetXP) {
+          gameState.currentXP -= gameState.targetXP;
+          gameState.playerLevel += 1;
+          gameState.targetXP = Math.floor(gameState.targetXP * 1.3);
           audio.playLevelUp();
-          onLevelUp();
+          if (onLevelUp) onLevelUp();
         }
       }
     }
+  }
+
+  performPlayerAttack(mouseTarget) {
+    let dir = new THREE.Vector3(0, 0, 1);
+    if (mouseTarget) {
+      dir.subVectors(mouseTarget, this.playerMesh.position).normalize();
+    }
+
+    const skin = gameState.selectedSkinId;
+    if (skin === 'ninja') {
+      audio.playShurikenThrow();
+      // Shoot 3 Shurikens
+      for (let angle = -0.3; angle <= 0.3; angle += 0.3) {
+        const sDir = dir.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), angle);
+        const geo = new THREE.BoxGeometry(0.4, 0.1, 0.4);
+        const mat = new THREE.MeshBasicMaterial({ color: 0x94a3b8 });
+        const mesh = new THREE.Mesh(geo, mat);
+        mesh.position.copy(this.playerMesh.position).add(new THREE.Vector3(0, 1, 0));
+        this.scene.add(mesh);
+        this.projectiles.push({ mesh, dir: sDir, speed: 20, damage: 20, life: 1.5 });
+      }
+    } else {
+      audio.playSwordSlash();
+      // Sword Slash Wave
+      const geo = new THREE.BoxGeometry(1.2, 0.2, 0.6);
+      const mat = new THREE.MeshBasicMaterial({ color: 0xf1c40f });
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.position.copy(this.playerMesh.position).add(dir.clone().multiplyScalar(1.5));
+      mesh.position.y = 1;
+      this.scene.add(mesh);
+      this.projectiles.push({ mesh, dir, speed: 18, damage: 35, life: 0.6 });
+    }
+  }
+
+  spawnEnemyWave() {
+    const angle = Math.random() * Math.PI * 2;
+    const spawnDist = 15;
+    const sx = this.playerMesh.position.x + Math.cos(angle) * spawnDist;
+    const sz = this.playerMesh.position.z + Math.sin(angle) * spawnDist;
+
+    const isBigOni = Math.random() < 0.25;
+    const enemyMesh = isBigOni ? PixelMeshGenerator.createAkaOniModel() : PixelMeshGenerator.createGakiModel();
+    enemyMesh.position.set(sx, 0, sz);
+    this.scene.add(enemyMesh);
+
+    this.enemies.push({
+      mesh: enemyMesh,
+      hp: isBigOni ? 120 : 35,
+      maxHp: isBigOni ? 120 : 35,
+      damage: isBigOni ? 25 : 10,
+      speed: isBigOni ? 3.5 : 5.2
+    });
+  }
+
+  spawnEXPOrb(pos) {
+    const geo = new THREE.SphereGeometry(0.3, 8, 8);
+    const mat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+    const orb = new THREE.Mesh(geo, mat);
+    orb.position.copy(pos);
+    orb.position.y = 0.5;
+    this.scene.add(orb);
+    this.expOrbs.push({ mesh: orb });
   }
 }
